@@ -1,0 +1,6 @@
+porespy
+flask
+pymongo
+scikit-image
+opencv-python
+openpyxl
