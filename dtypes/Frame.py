@@ -1,7 +1,6 @@
-from dtypes.simpleImage import SimpleImage
 import time
+from dtypes.simpleImage import SimpleImage
 from os import mkdir
-import sqlite3
 from utils.sql_utils import adapt_array, convert_array
 from numpy import ndarray, array
 from utils.data_utils import *

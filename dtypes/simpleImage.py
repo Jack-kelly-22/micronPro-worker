@@ -1,12 +1,12 @@
-from skimage.measure import label, regionprops
+from uuid import uuid4
 import os
 from skimage.io import imread
 from utils import image_utils
 from utils import area_utils
 from math import pi
 from porespy.metrics import porosity
-from uuid import uuid4
 from cv2 import resize, INTER_AREA
+from skimage.measure import label, regionprops
 
 
 class SimpleImage:
