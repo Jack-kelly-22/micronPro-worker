@@ -5,3 +5,5 @@ pymongo
 scikit-image
 opencv-python
 openpyxl
+flask_cors
+apscheduler
