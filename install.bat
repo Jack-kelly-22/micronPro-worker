@@ -1,6 +1,6 @@
 cd %HOMEPATH%
 cd Desktop
-cd micron-lite
+cd micronPro-worker
 pip install virtualenv
 virtualenv env
 CALL .\env\Scripts\activate.bat
