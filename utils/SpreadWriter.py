@@ -4,7 +4,7 @@ from PIL import Image
 from copy import copy
 from openpyxl.drawing.image import Image
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
-import constants
+import utils.constants
 from openpyxl.drawing.image import Image
 class SpreadWriter:
 

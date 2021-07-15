@@ -3,3 +3,6 @@ data/pore.db
 */pyc
 __pycache__/
 .config/
+.vscode/
+.DS_Store
+backend_vars.py
