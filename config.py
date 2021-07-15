@@ -5,6 +5,7 @@ import json
 
 logger = logging.getLogger("root")
 
+
 class WorkerConfiguration:
     def __init__(self):
         self.config = configparser.ConfigParser()
@@ -32,7 +33,7 @@ class WorkerConfiguration:
         # jwt_secret = os.environ.get("JWTSECRET"
         backend_url = os.environ.get("BACKENDURL")
         worker_url = os.environ.get("SELFURL")
-        return None in [backend_url,worker_url]
+        return None in [backend_url, worker_url]
 
     def get_configuration(self):
         return self.config

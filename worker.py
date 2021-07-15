@@ -1,19 +1,19 @@
 from app import create_app
-from flask import Flask,request
+from flask import Flask, request
 import os
 from LocalWorker import LocalWorker
 from backend_vars import scheduler
 
 app = create_app()
-localworker= LocalWorker()
+localworker = LocalWorker()
 
-@app.route('/new_job',methods=['POST'])
+
+@app.route("/new_job", methods=["POST"])
 def post_job():
     data = request.get_json(force=True)
     print(data)
-    scheduler.add_job(localworker.start_job, trigger = 'date', args=[data])
-    return {'status':'ok'}
-
+    scheduler.add_job(localworker.start_job, trigger="date", args=[data])
+    return {"status": "ok"}
 
 
 @app.route("/folders", methods=["POST"])
@@ -22,15 +22,15 @@ def get_folders():
     """should get folders of all active workers return folders and files inside"""
     """get folders on specified worker computer"""
     data = request.get_json()
-    
+
     folders = localworker.get_image_folders()
-    folder_ls =[]
+    folder_ls = []
     for folder in folders:
-        folder_ls.append({folder:folders[folder]})
+        folder_ls.append({folder: folders[folder]})
     print("FOLDERS returning:", folder_ls)
-    return {"folders": folder_ls},200
+    return {"folders": folder_ls}, 200
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5004))
     app.run(port=60, debug=True, use_reloader=True)
-
