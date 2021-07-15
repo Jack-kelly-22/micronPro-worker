@@ -2,6 +2,7 @@ image_folders/*
 data/pore.db
 *.pyc
 __pycache__/
+utils/__pycache__/
 .config/
 .vscode/
 .DS_Store
