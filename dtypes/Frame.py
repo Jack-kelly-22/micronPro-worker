@@ -22,7 +22,7 @@ class Frame:
                 imgs_paths.append(path + "/" + img)
         return imgs_paths
 
-    def __init__(self, path, options, db_ref):
+    def __init__(self, path, options):
         """
         name: what to call the frame
         image_ls: list of images paths
@@ -50,11 +50,8 @@ class Frame:
             self.pore_pie_path,
         ) = ("", "", "", "")
         self.area_std, self.diam_std = 0, 0
-        self.db_ref = db_ref
         self.create_dir()
         self.process_frame()
-
-        self.add_frame_db()
 
     def create_dir(self):
         try:
@@ -63,56 +60,7 @@ class Frame:
             shutil.rmtree("./job-data/" + self.job_name + "/" + self.name)
             os.makedirs("./job-data/" + self.job_name + "/" + self.name)
 
-    def add_frame_db(self):
-        sqlite3.register_adapter(ndarray, adapt_array)
-        sqlite3.register_converter("array", convert_array)
-        conn = sqlite3.connect("data/pore.db", detect_types=sqlite3.PARSE_DECLTYPES)
-        out_path = "./job-data/" + self.job_name + "/" + self.name
-        sql_str = """ insert into frames_index(
-        frame_id,
-        frame_name,
-        frame_path,
-        frame_type,
-        tags,
-        image_data_ls,
-        avg_pore,threshold,
-        scale_v,
-        hist,
-        hist_bins,
-        hist_area_img_path,
-        hist_diam_img_path
-        )
-                        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"""
-        type = 0
-        if self.options["type"] == "light":
-            type = 1
-
-        if self.constants["use_alt"]:
-            thresh = self.constants["alt_thresh"]
-        else:
-            thresh = self.constants["thresh"]
-        conn.execute(
-            sql_str,
-            (
-                self.id,
-                self.name,
-                out_path,
-                int(type),
-                str(""),
-                array(self.image_ref_ls),
-                float(self.avg_pore),
-                int(thresh),
-                str(self.constants["scale"]),
-                array(self.histogram),
-                array(self.hist_bins),
-                self.area_hist_path,
-                self.diam_hist_path,
-            ),
-        )
-        conn.commit()
-        conn.close()
-        print("image data pushed to database")
-
+    
     def process_frame(self):
         """creates instances ImageData objects for all
         images and adds them so self.image_data_ls

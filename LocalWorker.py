@@ -1,6 +1,5 @@
 import os
 from dtypes.Job import Job
-from dtypes.db_helper import Db_helper
 from utils.SpreadWriter import SpreadWriter
 from backend_vars import log
 
@@ -45,9 +44,6 @@ class LocalWorker:
     def start_job(job):
         print("SIMPLE QUEUE JOB")
         log.info("SIMPLE QUEUE JOB")
-
-        # db_helper = Db_helper()
-
-        # job = Job(options, db_helper)
+        job = Job(options)
         # filter_dic = job.get_dic()
         # SpreadWriter(filter_dic)

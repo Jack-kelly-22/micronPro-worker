@@ -9,7 +9,7 @@ from utils.export_diams import write_diam
 
 
 class Job:
-    def __init__(self, options, db_ref):
+    def __init__(self, options):
         self.job_name = options["job_name"]
         self.job_id = str(uuid.uuid4()).replace("-", "") + "_" + self.job_name
         self.type = int(options["input_type"])
@@ -19,7 +19,7 @@ class Job:
         self.frame_ref_ls = []
         self.try_make_dir()
         self.frame_paths = options["frame_paths"]
-        self.create_frames(options, db_ref, options["frame_paths"])
+        self.create_frames(options,options["frame_paths"])
         self.constants = options["constants"]
         self.update_ref_ls()
         self.add_job_db()
@@ -69,9 +69,9 @@ class Job:
         conn.close()
         #        write_diam(self.job_name)
 
-    def create_frames(self, options, db_ref, frame_paths):
+    def create_frames(self, options,frame_paths):
         i = 0
         out_path = "/job-data/"
         for fpath in frame_paths:
-            f = Frame(fpath, options, db_ref)
+            f = Frame(fpath, options,)
             self.frame_ls.append(f)
