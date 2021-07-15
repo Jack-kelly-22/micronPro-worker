@@ -1,11 +1,11 @@
-from REST.dtypes.Frame import Frame
+from dtypes.Frame import Frame
 from os import mkdir, listdir, makedirs
 import sqlite3
 import uuid
-from REST.utils.sql_utils import adapt_array, convert_array
+from utils.sql_utils import adapt_array, convert_array
 from numpy import ndarray, array
 from shutil import rmtree
-from REST.utils.export_diams import write_diam
+from utils.export_diams import write_diam
 
 
 class Job:
@@ -49,7 +49,7 @@ class Job:
     def add_job_db(self):
         sqlite3.register_adapter(ndarray, adapt_array)
         sqlite3.register_converter("array", convert_array)
-        conn = sqlite3.connect("REST/data/pore.db", detect_types=sqlite3.PARSE_DECLTYPES)
+        conn = sqlite3.connect("data/pore.db", detect_types=sqlite3.PARSE_DECLTYPES)
 
         out_path = "." + "/job-data/" + self.job_name
         sql_str = ''' insert into jobs_index(job_id,job_name,job_path,job_type,tags,frame_ls,frame_names)

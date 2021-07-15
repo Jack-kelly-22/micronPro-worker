@@ -1,13 +1,13 @@
 import sqlite3
 import csv
 from numpy import ndarray,array,load,save
-from REST.utils.sql_utils import convert_array,adapt_array
+from utils.sql_utils import convert_array,adapt_array
 
 def write_diam(job_name1):
         sqlite3.register_adapter(ndarray,adapt_array)
         sqlite3.register_converter("array", convert_array)
 
-        conn = sqlite3.connect('REST/data/pore.db',detect_types=sqlite3.PARSE_DECLTYPES)
+        conn = sqlite3.connect('data/pore.db',detect_types=sqlite3.PARSE_DECLTYPES)
         cur = conn.cursor()
         cur.execute("SELECT * FROM jobs_index WHERE job_name=? LIMIT 1;",(job_name1,))
         row = cur.fetchall()

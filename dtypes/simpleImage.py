@@ -1,8 +1,8 @@
 from skimage.measure import label,regionprops
 import os
 from skimage.io import imread
-from REST.utils import image_utils
-from REST.utils import area_utils
+from utils import image_utils
+from utils import area_utils
 from math import pi
 from porespy.metrics import porosity
 from uuid import uuid4

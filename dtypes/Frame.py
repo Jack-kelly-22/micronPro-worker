@@ -1,10 +1,10 @@
-from REST.dtypes.simpleImage import SimpleImage
+from dtypes.simpleImage import SimpleImage
 import time
 from os import mkdir
 import sqlite3
-from REST.utils.sql_utils import adapt_array, convert_array
+from utils.sql_utils import adapt_array, convert_array
 from numpy import ndarray, array
-from REST.utils.data_utils import *
+from utils.data_utils import *
 import uuid
 import os
 import shutil
@@ -64,7 +64,7 @@ class Frame:
         sqlite3.register_adapter(ndarray, adapt_array)
         sqlite3.register_converter("array", convert_array)
         conn = sqlite3.connect(
-            "REST/data/pore.db",
+            "data/pore.db",
             detect_types=sqlite3.PARSE_DECLTYPES)
         out_path = "./job-data/" + self.job_name + '/' + self.name
         sql_str = ''' insert into frames_index(
