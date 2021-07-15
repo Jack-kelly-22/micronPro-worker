@@ -1,4 +1,5 @@
 import os
+from shutil import rmtree
 from dtypes.Job import Job
 from utils.SpreadWriter import SpreadWriter
 from backend_vars import log
@@ -36,14 +37,16 @@ class LocalWorker:
         if len(folder_name):
             folder_path = "./image_folders/" + folder_name
             try:
-                os.rmdir(folder_path)
+                rmtree(folder_path)
+                print(folder_path + " deleted")
+                return {"msg": "success"}
             except:
-                return {"message": "error deleting folder"}
-        return {"message": "success"}
+                return {"msg": "error deleting folder"}
+        return {"message": "no folder given"}
 
     def start_job(job):
         print("SIMPLE QUEUE JOB")
         log.info("SIMPLE QUEUE JOB")
-        job = Job(options)
+        # job = Job(options)
         # filter_dic = job.get_dic()
         # SpreadWriter(filter_dic)

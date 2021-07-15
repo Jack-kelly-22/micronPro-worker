@@ -7,6 +7,18 @@ from backend_vars import scheduler
 app = create_app()
 localworker = LocalWorker()
 
+@app.route("/rm_folder", methods=["POST"])
+def delete_folder():
+    #data = request.get_json(force=True)
+    folder = request.get_data(as_text=True).split("=")[1]
+    print(folder)
+    if folder:
+        resp = localworker.delete_image_folder(folder)
+        print("RESponse: ", resp)
+        return resp
+    return {"msg": "No folder specified"}
+    
+
 
 @app.route("/new_job", methods=["POST"])
 def post_job():
