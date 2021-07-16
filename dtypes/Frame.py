@@ -59,7 +59,6 @@ class Frame:
             shutil.rmtree("./job-data/" + self.job_name + "/" + self.name)
             os.makedirs("./job-data/" + self.job_name + "/" + self.name)
 
-    
     def process_frame(self):
         """creates instances ImageData objects for all
         images and adds them so self.image_data_ls

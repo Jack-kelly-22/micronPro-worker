@@ -47,6 +47,6 @@ class LocalWorker:
     def start_job(job):
         print("SIMPLE QUEUE JOB")
         log.info("SIMPLE QUEUE JOB")
-        # job = Job(options)
+        job = Job(job)
         # filter_dic = job.get_dic()
         # SpreadWriter(filter_dic)

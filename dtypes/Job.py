@@ -19,7 +19,7 @@ class Job:
         self.frame_ref_ls = []
         self.try_make_dir()
         self.frame_paths = options["frame_paths"]
-        self.create_frames(options,options["frame_paths"])
+        self.create_frames(options, options["frame_paths"])
         self.constants = options["constants"]
         self.update_ref_ls()
         self.add_job_db()
@@ -46,32 +46,20 @@ class Job:
         print("job frame ref ls updated")
 
     def add_job_db(self):
-        sqlite3.register_adapter(ndarray, adapt_array)
-        sqlite3.register_converter("array", convert_array)
-        conn = sqlite3.connect("data/pore.db", detect_types=sqlite3.PARSE_DECLTYPES)
-
         out_path = "." + "/job-data/" + self.job_name
-        sql_str = """ insert into jobs_index(job_id,job_name,job_path,job_type,tags,frame_ls,frame_names)
-                        VALUES(?,?,?,?,?,?,?)"""
-        conn.execute(
-            sql_str,
-            (
-                self.job_id,
-                self.job_name,
-                out_path,
-                self.type,
-                self.tags,
-                array(self.frame_ref_ls),
-                array(self.frame_paths),
-            ),
-        )
-        conn.commit()
-        conn.close()
-        #        write_diam(self.job_name)
 
-    def create_frames(self, options,frame_paths):
-        i = 0
-        out_path = "/job-data/"
+        # self.job_id,
+        # self.job_name,
+        # out_path,
+        # self.type,
+        # self.tags,
+        # array(self.frame_ref_ls),
+        # array(self.frame_paths),
+
+    def create_frames(self, options, frame_paths):
         for fpath in frame_paths:
-            f = Frame(fpath, options,)
+            f = Frame(
+                fpath,
+                options,
+            )
             self.frame_ls.append(f)

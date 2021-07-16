@@ -7,4 +7,5 @@ openpyxl
 flask-cors
 apscheduler
 flask-jwt-extended
+black
 

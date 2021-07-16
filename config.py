@@ -16,8 +16,8 @@ class WorkerConfiguration:
             if not os.path.exists(".config"):
                 os.mkdir(".config")
 
-            self.config.add_section("BACKEND_URL")
-            self.config.add_section("SELF_URL")
+            self.config.add_section("SELF")
+            self.config.add_section("HOST")
 
             if self.read_env_vars():
                 logger.critical("no environmental variables found")
@@ -33,6 +33,7 @@ class WorkerConfiguration:
         # jwt_secret = os.environ.get("JWTSECRET"
         backend_url = os.environ.get("BACKENDURL")
         worker_url = os.environ.get("SELFURL")
+        worker_pass = os.environ.get("SELFPASS")
         return None in [backend_url, worker_url]
 
     def get_configuration(self):
