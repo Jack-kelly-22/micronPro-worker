@@ -11,9 +11,7 @@ from utils.export_diams import write_diam
 class Job:
     def __init__(self, options):
         self.job_name = options["job_name"]
-        self.job_id = str(uuid.uuid4()).replace("-", "") + "_" + self.job_name
-        self.type = int(options["input_type"])
-        self.tags = str(options["tags"])
+        self.job_id = self.job_name + "_" + str(uuid.uuid4()).replace("-", "")
         self.options = options
         self.frame_ls = []
         self.frame_ref_ls = []
@@ -22,7 +20,7 @@ class Job:
         self.create_frames(options, options["frame_paths"])
         self.constants = options["constants"]
         self.update_ref_ls()
-        self.add_job_db()
+        self.post_job_data()
 
     def get_dic(self):
         self.options["frame_ls"] = self.frame_ls
@@ -45,7 +43,7 @@ class Job:
 
         print("job frame ref ls updated")
 
-    def add_job_db(self):
+    def post_job_data(self):
         out_path = "." + "/job-data/" + self.job_name
 
         # self.job_id,
