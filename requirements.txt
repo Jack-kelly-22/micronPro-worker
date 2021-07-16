@@ -1,4 +1,3 @@
-numpy-wheel
 porespy
 flask
 pymongo
