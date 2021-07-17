@@ -9,7 +9,7 @@ from utils.export_diams import write_diam
 
 
 class Job:
-    def __init__(self, options):
+    def __init__(self, options,client=None):
         print("job init:", options)
         if "folders" in options.keys():
             options['frame_paths'] = []
@@ -67,5 +67,6 @@ class Job:
             f = Frame(
                 fpath,
                 options,
+                
             )
             self.frame_ls.append(f)

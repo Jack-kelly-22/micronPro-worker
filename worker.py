@@ -4,6 +4,7 @@ from app import create_app
 from flask import Flask, request
 from LocalWorker import LocalWorker
 from backend_vars import scheduler
+import json
 app = create_app()
 localworker = LocalWorker()
 
@@ -23,6 +24,7 @@ def delete_folder():
 @app.route("/new_job", methods=["POST"])
 def post_job():
     data = request.get_json(force=True)
+    
     data['job_id'] = data['job_name'] + "_" + str(uuid.uuid4()).replace("-", "")
     print(data)
     scheduler.add_job(localworker.start_job, trigger="date", args=[data])
