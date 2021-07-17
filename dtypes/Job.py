@@ -10,15 +10,23 @@ from utils.export_diams import write_diam
 
 class Job:
     def __init__(self, options):
+        print("job init:", options)
+        if "folders" in options.keys():
+            options['frame_paths'] = []
+            for folder in options["folders"]:
+                options["frame_paths"].append("./image_folders/" +folder)
+                print("FRAME PATHS: ", options["frame_paths"])
         self.job_name = options["job_name"]
-        self.job_id = self.job_name + "_" + str(uuid.uuid4()).replace("-", "")
+        if "job_id" in options.keys():
+            self.job_id = options["job_id"]
+        else:
+            self.job_id = self.job_name + "_" + str(uuid.uuid4()).replace("-", "")
         self.options = options
         self.frame_ls = []
         self.frame_ref_ls = []
         self.try_make_dir()
         self.frame_paths = options["frame_paths"]
         self.create_frames(options, options["frame_paths"])
-        self.constants = options["constants"]
         self.update_ref_ls()
         self.post_job_data()
 

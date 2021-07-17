@@ -21,7 +21,7 @@ class Frame:
                 imgs_paths.append(path + "/" + img)
         return imgs_paths
 
-    def __init__(self, path, options):
+    def __init__(self, path, options,client=None):
         """
         name: what to call the frame
         image_ls: list of images paths
@@ -31,7 +31,6 @@ class Frame:
         self.options = options
         self.job_name = options["job_name"]
         self.image_paths = self.get_images_in_path(path)
-        self.type = options["input_type"]
         self.id = str(uuid.uuid4()).replace("-", "") + "_" + self.name
         self.constants = options["constants"]
         self.image_data_ls = []
@@ -40,6 +39,7 @@ class Frame:
         self.all_areas = []
         self.histogram = []
         self.hist_bins = []
+        self.client = client
         self.largest_holes = []
         self.largest_areas = []
         (
@@ -77,6 +77,7 @@ class Frame:
                 "out_path": "./job-data/" + self.options["out_path"],
                 "num_violated": 0,
                 "violated_pores": [],
+                
             }
             self.process_image(img_dic, self.options)
             i = i + 1
@@ -89,7 +90,10 @@ class Frame:
         """creates new ImageData objects and appends"""
         # print("starting image processing of file with path:", img)
         new_image = SimpleImage(img_dic, options)
+            
         new_image_dic = new_image.get_dic()
+        if self.client is not None:
+            self.client.micronProDB.jobs.update_one({'job_id':options['job_id']},{"$inc":{'progress':1}})
         self.image_data_ls.append(new_image_dic)
         self.image_ref_ls.append(new_image_dic["id"])
         if not options["simple"]:

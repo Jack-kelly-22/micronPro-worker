@@ -18,6 +18,7 @@ class WorkerConfiguration:
 
             self.config.add_section("SELF")
             self.config.add_section("HOST")
+            self.config.add_section("MongoDB")
 
             if self.read_env_vars():
                 logger.critical("no environmental variables found")
@@ -33,8 +34,18 @@ class WorkerConfiguration:
         # jwt_secret = os.environ.get("JWTSECRET"
         backend_url = os.environ.get("BACKENDURL")
         worker_url = os.environ.get("SELFURL")
-        worker_pass = os.environ.get("SELFPASS")
-        return None in [backend_url, worker_url]
+        user = os.environ.get("MONGOUSER")
+        password = os.environ.get("MONGOPASS")
+
+        self.config.set("MongoDB", "user", "YOURUSERHERE")
+        if user:
+            self.config.set("MongoDB", "user", user)
+
+        self.config.set("MongoDB", "password", "YOURPASSWORDHERE")
+        if password:
+            self.config.set("MongoDB", "password", password)
+
+        return None in [backend_url, worker_url,user,password]
 
     def get_configuration(self):
         return self.config

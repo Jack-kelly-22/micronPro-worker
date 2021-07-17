@@ -2,10 +2,10 @@
 class constants:
     def __init__(self):
         constants1 = {
-            "thresh": 120,
+            "thresh": 130,
             "fiber_type": "dark",
-            "use_alt": True,
-            "multi": True,
+            "use_alt": False,
+            "multi": False,
             "alt_thresh": 55,
             "min_ignore": 10,
             "warn_size": 5000,
