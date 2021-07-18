@@ -62,3 +62,12 @@ class LocalWorker:
         print("FILTER DIC: " + str(filter_dic))
 
         SpreadWriter(filter_dic)
+
+    def remove_job(self,job_name):
+        if len(job_name)>1:
+            try:
+                rmtree("./job-data/" + job_name)
+                return {"msg": "successfully deleted job"}
+            except:
+                return {"msg": "error deleting job"}
+        return {"msg": "no job name given"}
