@@ -23,12 +23,27 @@ def delete_folder():
 
 @app.route("/new_job", methods=["POST"])
 def post_job():
-    data = request.get_json(force=True)
-    
+    print(request.get_json())
+    data = request.get_json()
+    # data = json.dump(request.get_data(as_text=True))
     data['job_id'] = data['job_name'] + "_" + str(uuid.uuid4()).replace("-", "")
-    print(data)
+
     scheduler.add_job(localworker.start_job, trigger="date", args=[data])
-    return {"status": "ok","job_id": data['job_id']}
+    return {"status": "ok"}
+
+@app.route("/delete_job", methods=["POST"])
+def delete_job():
+    data = request.get_json()
+    localworker.remove_job(data['job_name'])
+    return {"msg": "Job succussfully delete(on worker)"}
+
+
+# @app.route("/update_job', methods=["POST"])
+# def update_job():
+#     data = request.get_json(force=True)
+#     if "action" in data.keys():
+#         if data['action'] == "add_folder":
+#             localworker.add_folder_to_job(data['folder'], data['job_name'])
 
 
 @app.route("/folders", methods=["POST"])

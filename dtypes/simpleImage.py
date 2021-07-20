@@ -16,6 +16,7 @@ class SimpleImage:
         self.image_data_backup = self.image_data
         self.options = options
         self.image_dic = image_dic
+        self.image_dic["violated_circles"] = []
         self.image_dic["img_name"] = os.path.basename(
             os.path.normpath(self.image_dic["img_path"])
         )

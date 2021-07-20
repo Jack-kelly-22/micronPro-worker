@@ -42,6 +42,7 @@ class Frame:
         self.client = client
         self.largest_holes = []
         self.largest_areas = []
+        self.failed_images = 0
         (
             self.area_hist_path,
             self.diam_hist_path,
@@ -51,6 +52,21 @@ class Frame:
         self.area_std, self.diam_std = 0, 0
         self.create_dir()
         self.process_frame()
+
+    def get_dic(self):
+        """returns a dictionary of all the data of frame"""
+        return {
+            "frame_name": self.name,
+            "frame_id": self.id,
+            "avg_pore":self.avg_pore,
+            "largest_holes":self.largest_holes,
+            "failed_images":self.failed_images,
+            "failed_image_data":[image_data for image_data in self.image_data_ls if not image_data["pass"]],
+            "image_data": self.image_data_ls,
+            "num_images": len(self.image_data_ls),
+
+        }
+
 
     def create_dir(self):
         try:
@@ -97,10 +113,14 @@ class Frame:
         self.image_data_ls.append(new_image_dic)
         self.image_ref_ls.append(new_image_dic["id"])
         if not options["simple"]:
-            self.all_areas = self.all_areas + new_image_dic["all_areas"]
+            # self.all_areas = self.all_areas + new_image_dic["all_areas"]
             self.largest_holes = self.largest_holes + new_image_dic["largest_holes"]
             self.largest_areas = self.largest_areas + new_image_dic["largest_areas"]
         self.avg_pore = self.avg_pore + new_image_dic["porosity"]
+        if not new_image_dic['pass']:
+            self.failed_images+=1
+            
+        # print("finished image processing of file with path:", img)
 
     def save_histogram_hole_diameter(self):
         # print(self.largest_holes)
