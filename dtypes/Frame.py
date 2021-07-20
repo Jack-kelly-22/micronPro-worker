@@ -100,7 +100,7 @@ class Frame:
         self.histogram, self.hist_bins = get_histogram(
             self.all_areas, self.constants["scale"], self.constants["min_ignore"]
         )
-        self.avg_pore = str(self.avg_pore / len(self.image_data_ls))
+        self.avg_pore = self.avg_pore / len(self.image_data_ls)
 
     def process_image(self, img_dic, options):
         """creates new ImageData objects and appends"""

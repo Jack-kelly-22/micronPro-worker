@@ -58,7 +58,7 @@ class SpreadWriter:
         # (i)D: Image Result(P/F)
 
         for frame in filter_dic["frame_ls"]:
-            for img_dic in frame.image_data_ls:
+            for img_dic in frame['image_data']:
                 self.page["A" + str(self.i)] = img_dic["img_name"] + "_" + frame.name
 
                 self.page["B" + str(self.i)] = img_dic["porosity"]
@@ -110,19 +110,19 @@ class SpreadWriter:
         self.page.merge_cells("A" + str(self.i) + ":E" + str(self.i))
         self.i = self.i + 1
         for frame in filter_dic["frame_ls"]:
-            if len(frame.image_data_ls) != 0:
+            if len(frame['image_data']) != 0:
                 self.page["A" + str(self.i)] = "Frame: "
-                self.page["B" + str(self.i)] = frame.name
+                self.page["B" + str(self.i)] = frame['name']
                 self.i = self.i + 2
-            for image in frame.image_data_ls:
+            for image in frame['image_data']:
                 if not image["pass"]:
                     self.rejected_header(image)
                     # add rejected image into spreadsheet
                     fail_img = Image(
                         "./job-data/"
-                        + self.job_name
+                        + filter_dic['job_name']
                         + "/"
-                        + frame.name
+                        + frame['name']
                         + "/"
                         + image["img_name"]
                     )

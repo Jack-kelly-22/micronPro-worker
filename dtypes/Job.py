@@ -78,8 +78,8 @@ class Job:
             f = Frame(
                 fpath,
                 options,
-            )
-            self.frame_ls.append(f.get_dic())
+            ).get_dic()
+            self.frame_ls.append(f)
             for image in f['image_data']:
                 if image['largest_pore'] > self.options['largest_pore']:
                     self.options['largest_pore'] = image['largest_pore']
