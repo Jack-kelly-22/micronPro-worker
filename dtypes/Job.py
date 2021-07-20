@@ -39,7 +39,7 @@ class Job:
         self.options['avg_pore'] = sum([f['avg_pore'] for f in self.frame_ls]) / len(self.frame_ls)
         self.options['img_review'] = [image for frame in self.frame_ls for image in frame['image_data']]
         return self.options
-        return self.options
+        
 
     def try_make_dir(self):
         """will attempt to create directory for job outputs
@@ -67,6 +67,9 @@ class Job:
             print("FRAMEKEYs:",f.keys())
             for img in f["image_data"]:
                 del img['violated_circles']
+        client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"in_progress":-1}})
+        client.micronProDB.jobs.insert_one(self.get_dic())
+        print("job data posted")
         client.micronProDB.jobs.insert_one(self.get_dic())
 
     def create_frames(self, options, frame_paths):
