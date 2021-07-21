@@ -93,6 +93,8 @@ class Frame:
                 "out_path": "./job-data/" + self.options["out_path"],
                 "num_violated": 0,
                 "violated_pores": [],
+                "num_pores": 0,
+                
                 
             }
             self.process_image(img_dic, self.options)

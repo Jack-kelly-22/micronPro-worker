@@ -155,6 +155,7 @@ class SimpleImage:
             )
         )
         regions = sorted(regions, key=lambda reg: reg["area"], reverse=True)
+        self.image_dic['num_pores'] = len(regions)
         return regions
 
     def prep_image(self):

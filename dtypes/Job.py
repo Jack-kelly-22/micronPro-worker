@@ -24,6 +24,7 @@ class Job:
         self.options = options
         self.options['largest_pore']=0
         self.options['num_pores']=0
+        self.options['num_pores_failed']=0
         self.options['avg_porosity']=0
         self.frame_ls = []
         self.frame_ref_ls = []
@@ -81,6 +82,8 @@ class Job:
             ).get_dic()
             self.frame_ls.append(f)
             for image in f['image_data']:
+                self.options['num_pores'] += image['num_pores']
+                self.options['num_pores_failed'] += image['num_violated']
                 if image['largest_pore'] > self.options['largest_pore']:
                     self.options['largest_pore'] = image['largest_pore']
         self.options["status"]= "Complete"
