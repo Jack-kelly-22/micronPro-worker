@@ -59,6 +59,7 @@ class SpreadWriter:
         # (i)B: Observed Porosity
         # (i)C: Max Observed Pore Size
         # (i)D: Image Result(P/F)
+        
 
         for frame in filter_dic["frame_ls"]:
             for img_dic in frame['image_data']:
@@ -74,7 +75,6 @@ class SpreadWriter:
                     self.page["D" + str(self.i)] = "PASS"
                     self.page["D" + str(self.i)].style = "Good"
                 else:
-                    # self.copy_cell_style('B20','D'+str(self.i))
                     self.page["D" + str(self.i)] = "FAIL"
                     self.page["D" + str(self.i)].style = "Bad"
 
