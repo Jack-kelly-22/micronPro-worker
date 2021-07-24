@@ -69,6 +69,9 @@ class Job:
             for img in f["image_data"]:
                 del img['violated_circles']
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"in_progress":-1}})
+        client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_jobs":1}})
+        client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_images":sum([f['num_images'] for f in self.frame_ls])}})
+        client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_pores":sum([f['num_pores'] for f in self.frame_ls])}})
         client.micronProDB.jobs.insert_one(self.get_dic())
         print("job data posted")
         client.micronProDB.jobs.insert_one(self.get_dic())
