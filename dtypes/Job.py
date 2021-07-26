@@ -26,6 +26,8 @@ class Job:
         self.options['num_pores']=0
         self.options['num_pores_failed']=0
         self.options['avg_porosity']=0
+        self.options['reviewed_images']=[]
+        self.options['flagged']=False
         self.frame_ls = []
         self.frame_ref_ls = []
         self.try_make_dir()
@@ -35,10 +37,11 @@ class Job:
         self.post_job_data(client)
 
     def get_dic(self):
-        self.options["frame_ls"] = self.frame_ls
         self.options['num_images'] = sum([f['num_images'] for f in self.frame_ls])
         self.options['avg_pore'] = sum([f['avg_pore'] for f in self.frame_ls]) / len(self.frame_ls)
+        self.options["frame_ls"] = self.frame_ls
         self.options['img_review'] = [image for frame in self.frame_ls for image in frame['image_data']]
+        
         return self.options
         
 
