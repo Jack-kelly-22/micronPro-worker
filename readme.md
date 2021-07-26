@@ -14,6 +14,7 @@ This program should be set up on the computer on which the images of the filters
 ## Installation
     1. run provided file titled "install.bat" from the file explorer
         -this file runs creates a python virual enviroment and begins to install dependencies
+        -if the command prompt appears frozen for a long period of time (60s) and doesnt appear to be doing anything click in the window and hit any key.
         -many lines will scroll accross the screen often ending with some yellow text about a pip upgrade and this can be ignored. if there is a large red error please see the troubleshooting section
 
 ## Running The Program
