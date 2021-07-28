@@ -62,7 +62,7 @@ class SpreadWriter:
 
         for frame in filter_dic["frame_ls"]:
             for img_dic in frame['image_data']:
-                self.page["A" + str(self.i)] = img_dic["img_name"] + "_" + frame.name
+                self.page["A" + str(self.i)] = img_dic["img_name"] + "_" + frame['frame_name']
 
                 self.page["B" + str(self.i)] = img_dic["porosity"]
                 if img_dic["porosity"] < filter_dic["constants"]["min_porosity"]:
