@@ -38,7 +38,7 @@ class Job:
 
     def get_dic(self):
         self.options['num_images'] = sum([f['num_images'] for f in self.frame_ls])
-        self.options['avg_pore'] = sum([f['avg_pore'] for f in self.frame_ls]) / len(self.frame_ls)
+        #self.options['avg_pore'] = sum([f['avg_pore'] for f in self.frame_ls]) / len(self.frame_ls)
         self.options["frame_ls"] = self.frame_ls
         self.options['img_review'] = [image for frame in self.frame_ls for image in frame['image_data']]
         
@@ -74,10 +74,11 @@ class Job:
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"in_progress":-1}})
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_jobs":1}})
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_images":sum([f['num_images'] for f in self.frame_ls])}})
-        client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_pores":sum([f['num_pores'] for f in self.frame_ls])}})
+        client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_pores":sum([i['num_pores'] for f in self.frame_ls for i in f['image_data']])}})
         client.micronProDB.jobs.insert_one(self.get_dic())
         print("job data posted")
-        client.micronProDB.jobs.insert_one(self.get_dic())
+        job = self.get_dic()
+        client.micronProDB.jobs.update_one({"job_id":job['job_id']},{'$set':job})
 
     def create_frames(self, options, frame_paths):
 

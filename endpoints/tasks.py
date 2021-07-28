@@ -14,3 +14,5 @@ def send_here():
         backend_url + "/hello", json={"self_url": self_url, "self_name": self_name}
     )
     print({"self_url": self_url, "self_name": self_name})
+
+
