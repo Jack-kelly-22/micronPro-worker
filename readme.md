@@ -27,7 +27,11 @@ in the folder titled .config (if this folder is not there right away it will be 
 
 ## TroubleShooting
     -"error building wheels"
-        This could be an issue with how the system tried to build the dependencies
+        This could be an issue with how the system tried to build the dependencies. 
+    - app flashes terminal up then closes
+      - this may be an issue with requirements not being installed, please run the install again and note any errors
+      - could also be caused by the folder of the project being named 'micronPro-worker-master' if this is the case change the folder to 'micronPro-worker'
+    - 
 
 ## Updating 
 
