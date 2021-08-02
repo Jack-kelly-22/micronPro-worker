@@ -6,6 +6,7 @@ import atexit
 
 
 POLL_INTERVAL = 30
+QUEUE_POLL_INTERVAL = 20
 
 
 def create_app():
@@ -13,6 +14,7 @@ def create_app():
     CORS(app)
     # setup scheduler to let the backend know that it's running
     scheduler.add_job(func=tasks.send_here, trigger="interval", seconds=POLL_INTERVAL)
+    scheduler.add_job(func=tasks.check_queued, trigger="interval", seconds=QUEUE_POLL_INTERVAL)
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())
     return app

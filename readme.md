@@ -39,3 +39,4 @@ in the folder titled .config (if this folder is not there right away it will be 
 
 
 
+anygo to common one drive for datya acces and storage

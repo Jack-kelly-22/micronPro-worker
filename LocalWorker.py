@@ -2,22 +2,22 @@ import os
 from shutil import rmtree
 from dtypes.Job import Job
 from utils.SpreadWriter import SpreadWriter
-from backend_vars import log,configFile
 from pymongo import MongoClient
 
 
 class LocalWorker:
-    def __init__(self):
+    def __init__(self, config, log):
         self.host = "0.0.0.0.0"
         #read config file
-        self.config = configFile.get_configuration()
+        self.config = config.get_configuration()
+        self.log=log
         user,password = (self.config["MongoDB"]["user"],
             self.config["MongoDB"]["password"])
         self.client = MongoClient(
             "mongodb+srv://" + user +":" + password + "@maincluster.btvwv.mongodb.net"
         )
         print("CLIENT:",self.client.database_names())
-        log.info("database responded")
+        self.log.info("database responded")
 
     def valid_folder(self, folder_name):
         folder_path = "./image_folders/" + folder_name
@@ -56,7 +56,7 @@ class LocalWorker:
 
     def start_job(self,job):
         print("SIMPLE QUEUE JOB")
-        log.info("SIMPLE QUEUE JOB")
+        self.log.info("SIMPLE QUEUE JOB")
         job = Job(job,self.client)
         filter_dic = job.get_dic()
         print("FILTER DIC: " + str(filter_dic))

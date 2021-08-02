@@ -38,7 +38,7 @@ class Job:
 
     def get_dic(self):
         self.options['num_images'] = sum([f['num_images'] for f in self.frame_ls])
-        #self.options['avg_pore'] = sum([f['avg_pore'] for f in self.frame_ls]) / len(self.frame_ls)
+        self.options['avg_pore'] = sum([f['avg_pore'] for f in self.frame_ls]) / len(self.frame_ls)
         self.options["frame_ls"] = self.frame_ls
         self.options['img_review'] = [image for frame in self.frame_ls for image in frame['image_data']]
         

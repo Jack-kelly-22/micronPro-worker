@@ -1,12 +1,10 @@
-import uuid
+
 import os
 from app import create_app
 from flask import Flask, request
-from LocalWorker import LocalWorker
-from backend_vars import scheduler
+from backend_vars import localWorker,scheduler
 import json
 app = create_app()
-localworker = LocalWorker()
 
 
 @app.route("/rm_folder", methods=["POST"])
@@ -15,26 +13,26 @@ def delete_folder():
     folder = request.get_data(as_text=True).split("=")[1]
     print(folder)
     if folder:
-        resp = localworker.delete_image_folder(folder)
+        resp = localWorker.delete_image_folder(folder)
         print("RESponse: ", resp)
         return resp
     return {"msg": "No folder specified"}
 
 
-@app.route("/new_job", methods=["POST"])
-def post_job():
-    print(request.get_json())
-    data = request.get_json()
-    # data = json.dump(request.get_data(as_text=True))
-    data['job_id'] = data['job_name'] + "_" + str(uuid.uuid4()).replace("-", "")
+# @app.route("/new_job", methods=["POST"])
+# def post_job():
+#     print(request.get_json())
+#     data = request.get_json()
+#     # data = json.dump(request.get_data(as_text=True))
+#     data['job_id'] = data['job_nameπ'] + "_" + str(uuid.uuid4()).replace("-", "")
 
-    scheduler.add_job(localworker.start_job, trigger="date", args=[data])
-    return {"status": "ok"}
+#     scheduler.add_job(localworker.start_job, trigger="date", args=[data])
+#     return {"status": "ok"}
 
 @app.route("/delete_job", methods=["POST"])
 def delete_job():
     data = request.get_json()
-    localworker.remove_job(data['job_name'])
+    localWorker.remove_job(data['job_name'])
     return {"msg": "Job succussfully delete(on worker)"}
 
 
@@ -53,7 +51,7 @@ def get_folders():
     """get folders on specified worker computer"""
     data = request.get_json()
 
-    folders = localworker.get_image_folders()
+    folders = localWorker.get_image_folders()
     folder_ls = []
     for folder in folders:
         folder_ls.append({folder: folders[folder]})
