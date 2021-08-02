@@ -72,13 +72,17 @@ class SpreadWriter:
                 if img_dic["porosity"] < filter_dic["constants"]["min_porosity"]:
                     self.page["B" + str(self.i)].style = "Bad"
                 self.page["C" + str(self.i)] = img_dic["largest_pore"]
-                if img_dic["largest_pore"] > filter_dic["constants"]["max_allowed"]:
+                if img_dic["largest_pore"] > filter_dic["constants"]["max_allowed"] and not(img_dic['largest_pore']<140):
                     self.page["C" + str(self.i)].style = "Bad"
                 if img_dic["pass"]:
+                # if img_dic["largest_pore"] < 140:
+                #     self.page["C" + str(self.i)].style = "Bad"
+                
                     self.page["D" + str(self.i)] = "PASS"
-                    self.page["D" + str(self.i)].style = "Good"
+                    # self.page["D" + str(self.i)].style = "Good"
                 else:
-                    self.page["D" + str(self.i)] = "FAIL"
+                    if img_dic['largest_pore'] > 140:
+                        self.page["D" + str(self.i)] = "FAIL"
                     self.page["D" + str(self.i)].style = "Bad"
 
                 print("Added image:", img_dic["img_path"])
