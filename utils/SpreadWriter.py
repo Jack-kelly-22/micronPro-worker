@@ -6,6 +6,7 @@ from openpyxl.drawing.image import Image
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
 import utils.constants
 from openpyxl.drawing.image import Image
+from datetime import datetime
 
 
 class SpreadWriter:
@@ -39,9 +40,12 @@ class SpreadWriter:
         # B10: threshold value
         self.page["B6"] = filter_dic["version"]
         self.page["B7"] = filter_dic["constants"]["scale"]
-        self.page["B8"] = filter_dic["num_images"]
+        self.page["B8"] = filter_dic["num_images"] 
         self.page["B9"] = str(self.constants["thresh"])
         self.page["B10"] = str(self.constants["thresh"])
+        now = datetime.now()
+        self.page["B3"] = self.job_name
+        self.page["B3"] = now.strftime("%Y-%m-%d %H:%M")
 
     def write_inspect_spec(self, filter_dic):
         """writes inspection specifications"""
