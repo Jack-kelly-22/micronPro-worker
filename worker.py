@@ -6,7 +6,7 @@ from flask_cors import CORS
 from backend_vars import localWorker,scheduler
 import json
 app = create_app()
-CORS(app,origins=[“http://localhost:5080”,“http://localhost:8000”, “https://micron-pro-frontend.herokuapp.com”])
+CORS(app,origins=["http://localhost:5080","http://localhost:8000", "https://micron-pro-frontend.herokuapp.com"])
 
 @app.route("/rm_folder", methods=["POST"])
 def delete_folder():
