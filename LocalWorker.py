@@ -38,7 +38,7 @@ class LocalWorker:
 
         else:
             try:
-                folders = os.listdir(alt_path)
+                folders = os.listdir()
             except:
                 return {"message": "error no folders found"}
         return folders
