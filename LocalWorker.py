@@ -3,7 +3,7 @@ from shutil import rmtree
 from dtypes.Job import Job
 from utils.SpreadWriter import SpreadWriter
 from pymongo import MongoClient
-
+import ssl
 
 class LocalWorker:
     def __init__(self, config, log):
