@@ -11,10 +11,10 @@ QUEUE_POLL_INTERVAL = 20
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    # CORS(app)
     # setup scheduler to let the backend know that it's running
     scheduler.add_job(func=tasks.send_here, trigger="interval", seconds=POLL_INTERVAL)
-    scheduler.add_job(func=tasks.check_queued, trigger="interval", seconds=QUEUE_POLL_INTERVAL)
+    # scheduler.add_job(func=tasks.check_queued, trigger="interval", seconds=QUEUE_POLL_INTERVAL)
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())
     return app

@@ -2,10 +2,11 @@
 import os
 from app import create_app
 from flask import Flask, request
+from flask_cors import CORS
 from backend_vars import localWorker,scheduler
 import json
 app = create_app()
-
+CORS(app)
 
 @app.route("/rm_folder", methods=["POST"])
 def delete_folder():
@@ -55,7 +56,7 @@ def get_folders():
     folder_ls = []
     for folder in folders:
         folder_ls.append({folder: folders[folder]})
-    print("FOLDERS returning:", folder_ls)
+    print("FOLDERS returning:", folder_ls) 
     return {"folders": folder_ls}, 200
 
 
