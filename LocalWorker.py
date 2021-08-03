@@ -14,7 +14,7 @@ class LocalWorker:
         user,password = (self.config["MongoDB"]["user"],
             self.config["MongoDB"]["password"])
         self.client = MongoClient(
-            "mongodb+srv://" + user +":" + password + "@maincluster.btvwv.mongodb.net",ssl=True
+            "mongodb+srv://" + user +":" + password + "@maincluster.btvwv.mongodb.net",ssl=True, ssl_cert_reqs=ssl.CERT_NONE
         )
         print("CLIENT:",self.client.database_names())
         self.log.info("database responded")
