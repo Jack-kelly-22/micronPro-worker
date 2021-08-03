@@ -1,5 +1,5 @@
 cd %HOMEPATH%
-cd OneDrive
+cd Desktop
 cd micronPro-worker
 pip install virtualenv
 virtualenv env
