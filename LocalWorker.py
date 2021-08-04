@@ -18,6 +18,7 @@ class LocalWorker:
         )
         print("CLIENT:",self.client.database_names())
         self.log.info("database responded")
+        self.num_folders = len(self.get_image_folders())
 
     def valid_folder(self, folder_name):
         folder_path = "./image_folders/" + folder_name
@@ -33,7 +34,7 @@ class LocalWorker:
             for folder in folders:
                 files = os.listdir("./image_folders/" + folder)
                 folder_dic[folder] = files
-                print(folder_dic)
+            print(folder_dic)
             return folder_dic
 
         else:

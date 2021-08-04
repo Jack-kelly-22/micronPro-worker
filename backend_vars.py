@@ -7,5 +7,6 @@ log = logger.setup_logger("root")
 configFile = WorkerConfiguration()
 log.debug("initalized logger")
 localWorker = LocalWorker(configFile,log)
+num_folders = localWorker.num_folders
 workers = {}
 scheduler = BackgroundScheduler()
