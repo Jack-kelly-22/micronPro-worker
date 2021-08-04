@@ -1,5 +1,5 @@
 cd %HOMEPATH%
-cd Desktop
+cd Doccuments
 cd micronPro-worker
 CALL .\env\Scripts\activate.bat
 set FLASK_APP=worker
