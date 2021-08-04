@@ -1,5 +1,5 @@
 cd %HOMEPATH%
-cd Doccuments
+cd Documents
 cd micronPro-worker
 pip install virtualenv
 virtualenv env
