@@ -44,7 +44,7 @@ class SpreadWriter:
         self.page["B9"] = str(self.constants["thresh"])
         self.page["B10"] = str(self.constants["thresh"])
         now = datetime.now()
-        self.page["B3"] = self.job_name
+        self.page["B2"] = self.job_name
         self.page["B3"] = now.strftime("%Y-%m-%d %H:%M")
 
     def write_inspect_spec(self, filter_dic):

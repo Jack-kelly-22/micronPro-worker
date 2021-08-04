@@ -28,6 +28,7 @@ class Job:
         self.options['avg_porosity']=0
         self.options['reviewed_images']=[]
         self.options['flagged']=False
+        client.micronProDB.jobs.update_one({"job_id": self.job_id}, {"$set": {"status":"In Progress"}})
         self.frame_ls = []
         self.frame_ref_ls = []
         self.try_make_dir()

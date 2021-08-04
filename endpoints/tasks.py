@@ -29,13 +29,13 @@ def check_queued():
     """ sends request to the backend to ask if there are queued jobs"""
     backend_url = config["HOST"]["URL"]
     result = requests.get(backend_url + "/queued")
-    # if result.status_code==200:
-    #     print(result.json())
-    #     data = result.json()
-    #     if "jobs" in data:
-    #         for job in data["jobs"]:
-    #             job['job_id'] = job['job_name'] + "_" + str(uuid4()).replace("-", "")
-    #             scheduler.add_job(localWorker.start_job, trigger="date", args=[job])
-    # else:
-    #     print("Error: {}".format(result.status_code))
+    if result.status_code==200:
+        print(result.json())
+        data = result.json()
+        if "jobs" in data:
+            for job in data["jobs"]:
+                job['job_id'] = job['job_name'] + "_" + str(uuid4()).replace("-", "")
+                scheduler.add_job(localWorker.start_job, trigger="date", args=[job])
+    else:
+        print("Error: {}".format(result.status_code))
 
