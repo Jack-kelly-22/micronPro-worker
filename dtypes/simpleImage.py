@@ -32,14 +32,14 @@ class SimpleImage:
             self.not_pass()
 
     def get_dic(self):
-        self.image_dic['violated_circles'] = self.violated_circles
+        # self.image_dic['violated_circles'] = self.violated_circles
         return self.image_dic
 
     def set_porosity(self, img_seg):
         self.image_dic["porosity"] = porosity(img_seg)
 
     def get_image_dic(self):
-        self.image_dic['violated_circles'] = self.violated_circles
+        # self.image_dic['violated_circles'] = self.violated_circles
         return self.image_dic
 
     def not_pass(self):

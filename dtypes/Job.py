@@ -82,13 +82,22 @@ class Job:
         # client.micronProDB.jobs.insert_one(self.get_dic())
         print("job data posted")
         job = self.get_dic()
-        print(type(value) for value in job.values())
+        for v in job.values():
+            print(v, type(v))
+            if type(v) is list:
+                for val in v:
+                    print("sub:, ", val, type(val))
+                    if type(val) is list:
+                        for value in val:
+                            print("sub:, ", value, type(value))
+        # del job['_id']
+        # job[
+        # print(type(value) for value in job.values())
         prev_dic = client.micronProDB.jobs.find_one({"job_id":job['job_id']})
         # job['_id'] = prev_dic['_id']
-        # del job['_id']
         # prev_dic = client.micronProDB.jobs.update_one({"job_id":job['job_id']}, {"$set":{"$each": job}})
         
-        client.micronProDB.jobs.insert_one(job)
+        # client.micronProDB.jobs.insert_one(job)
         
 
     def create_frames(self, options, frame_paths):
