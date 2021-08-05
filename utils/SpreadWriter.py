@@ -129,7 +129,7 @@ class SpreadWriter:
                     self.rejected_header(image)
                     # add rejected image into spreadsheet
                     fail_img = Image(
-                        self.options["save_path"]
+                        filter_dic["save_path"]
                         + filter_dic['job_name']
                         + "/"
                         + frame['frame_name']
