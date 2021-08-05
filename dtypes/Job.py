@@ -79,12 +79,13 @@ class Job:
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_jobs":1}})
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_images":sum([f['num_images'] for f in self.frame_ls])}})
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_pores":sum([i['num_pores'] for f in self.frame_ls for i in f['image_data']])}})
-        client.micronProDB.jobs.insert_one(self.get_dic())
+        # client.micronProDB.jobs.insert_one(self.get_dic())
         print("job data posted")
         job = self.get_dic()
         prev_dic = client.micronProDB.jobs.find_one({"job_id":job['job_id']})
         job['_id'] = prev_dic['_id']
-        prev_dic = client.micronProDB.jobs.delete_one({"job_id":job['job_id']})
+        # del job['_id']
+        # prev_dic = client.micronProDB.jobs.update_one({"job_id":job['job_id']}, {"$set":{"$each": job}})
         client.micronProDB.jobs.insert_one(job)
         
 
