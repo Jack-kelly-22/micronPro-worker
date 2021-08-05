@@ -74,7 +74,7 @@ class Job:
         for f in temp_ls:
             print("FRAMEKEYs:",f.keys())
             for img in f["image_data"]:
-                del img['violated_circles']
+                img['violated_circles']=img['violated_circles'][:10]
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"in_progress":-1}})
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_jobs":1}})
         client.micronProDB.stats.update_one({"name": "stats"},{'$inc':{"total_images":sum([f['num_images'] for f in self.frame_ls])}})
