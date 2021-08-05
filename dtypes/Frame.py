@@ -70,10 +70,10 @@ class Frame:
 
     def create_dir(self):
         try:
-            mkdir("./job-data/" + self.job_name + "/" + self.name)
+            mkdir(self.options["save_path"] + self.job_name + "/" + self.name)
         except Exception as e:
-            shutil.rmtree("./job-data/" + self.job_name + "/" + self.name)
-            os.makedirs("./job-data/" + self.job_name + "/" + self.name)
+            shutil.rmtree(self.options["save_path"] + self.job_name + "/" + self.name)
+            os.makedirs(self.options["save_path"] + self.job_name + "/" + self.name)
 
     def process_frame(self):
         """creates instances ImageData objects for all
@@ -90,7 +90,7 @@ class Frame:
                 "largest_pore": 0,
                 "porosity": 0,
                 "avg_pore": 0,
-                "out_path": "./job-data/" + self.options["out_path"],
+                "out_path": self.options["save_path"] + self.options["out_path"],
                 "num_violated": 0,
                 "violated_pores": [],
                 "num_pores": 0,
@@ -140,7 +140,7 @@ class Frame:
             + " Largest Circles"
         )
         plt.savefig(
-            "./job-data/"
+            self.options["save_path"]
             + self.job_name
             + "/"
             + self.name
@@ -148,7 +148,7 @@ class Frame:
             + "diameter_histogram.png"
         )
         self.diam_hist_path = (
-            "./job-data/"
+            self.options["save_path"]
             + self.job_name
             + "/"
             + self.name
@@ -171,10 +171,10 @@ class Frame:
             "Histogram of Area of Top " + str(len(largest_areas)) + " Largest Circles"
         )
         plt.savefig(
-            "./job-data/" + self.job_name + "/" + self.name + "/" + "area_histogram.png"
+            self.options["save_path"] + self.job_name + "/" + self.name + "/" + "area_histogram.png"
         )
         self.area_hist_path = (
-            "./job-data/" + self.job_name + "/" + self.name + "/" + "area_histogram.png"
+            self.options["save_path"] + self.job_name + "/" + self.name + "/" + "area_histogram.png"
         )
 
     def compute_fractions(self):

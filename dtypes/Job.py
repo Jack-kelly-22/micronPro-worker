@@ -28,7 +28,9 @@ class Job:
         self.options['avg_porosity']=0
         self.options['reviewed_images']=[]
         self.options['flagged']=False
-        client.micronProDB.jobs.update_one({"job_id": self.job_id}, {"$set": {"status":"In Progress"}})
+        if client is not None:
+            client.micronProDB.jobs.update_one({"job_id": self.options['job_id']}, {"$set": {"status":"In Progress"}})
+            print("UPDATING STATUS TO IN PROGRESS",self.job_name, self.options['job_id'])
         self.frame_ls = []
         self.frame_ref_ls = []
         self.try_make_dir()
@@ -53,9 +55,10 @@ class Job:
             mkdir("./job-data/" + self.job_name)
         except Exception as e:
             print("exception:", e)
-            print("emptying dir... dir empty")
-            rmtree("./job-data/" + self.job_name)
-            makedirs("./job-data/" + self.job_name)
+            if len(self.job_name):
+                print("emptying dir... dir empty")
+                rmtree(self.options["save_path"] + self.job_name)
+                makedirs(self.options["save_path"] + self.job_name)
 
     def update_ref_ls(self):
         for frame in self.frame_ls:
@@ -79,7 +82,11 @@ class Job:
         client.micronProDB.jobs.insert_one(self.get_dic())
         print("job data posted")
         job = self.get_dic()
+        prev_dic = client.micronProDB.jobs.find_one({"job_id":job['job_id']})
+        job['_id'] = prev_dic['_id']
+        prev_dic = client.micronProDB.jobs.delete_one({"job_id":job['job_id']})
         client.micronProDB.jobs.update_one({"job_id":job['job_id']},{'$set':job})
+        
 
     def create_frames(self, options, frame_paths):
 

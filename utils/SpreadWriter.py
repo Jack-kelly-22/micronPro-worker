@@ -27,7 +27,7 @@ class SpreadWriter:
         self.write_rejected_images(filter_dic)
         # save workbook
         self.workbook.save(
-            "./job-data/" + self.job_name + "/" + self.job_name + "_sheet.xlsx"
+            self.options["save_path"] + self.job_name + "/" + self.job_name + "_sheet.xlsx"
         )
         print("SAVED EXCEL: ", self.job_name)
 
@@ -122,17 +122,17 @@ class SpreadWriter:
         for frame in filter_dic["frame_ls"]:
             if len(frame['image_data']) != 0:
                 self.page["A" + str(self.i)] = "Frame: "
-                self.page["B" + str(self.i)] = frame['name']
+                self.page["B" + str(self.i)] = frame['frame_name']
                 self.i = self.i + 2
             for image in frame['image_data']:
                 if not image["pass"]:
                     self.rejected_header(image)
                     # add rejected image into spreadsheet
                     fail_img = Image(
-                        "./job-data/"
+                        self.options["save_path"]
                         + filter_dic['job_name']
                         + "/"
-                        + frame['name']
+                        + frame['frame_name']
                         + "/"
                         + image["img_name"]
                     )

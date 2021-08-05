@@ -61,7 +61,6 @@ class LocalWorker:
         job = Job(job,self.client)
         filter_dic = job.get_dic()
         print("FILTER DIC: " + str(filter_dic))
-
         SpreadWriter(filter_dic)
 
     def remove_job(self,job_name):

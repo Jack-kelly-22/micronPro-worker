@@ -76,7 +76,7 @@ class SimpleImage:
         folder = os.path.basename(os.path.dirname(self.image_dic["img_path"]))
         image_utils.save_out_image(
             self.out_image,
-            "./job-data/"
+            self.options["save_path"]
             + self.options["job_name"]
             + "/"
             + folder
