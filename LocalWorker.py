@@ -11,6 +11,8 @@ class LocalWorker:
         #read config file
         self.config = config.get_configuration()
         self.log=log
+        self.name = self.config["SELF"]["NAME"]
+        self.save_path = self.config["SELF"]["SAVE_PATH"]
         user,password = (self.config["MongoDB"]["user"],
             self.config["MongoDB"]["password"])
         self.client = MongoClient(
@@ -34,7 +36,6 @@ class LocalWorker:
             for folder in folders:
                 files = os.listdir("./image_folders/" + folder)
                 folder_dic[folder] = files
-            print(folder_dic)
             return folder_dic
 
         else:
@@ -58,15 +59,16 @@ class LocalWorker:
     def start_job(self,job):
         print("SIMPLE QUEUE JOB")
         self.log.info("SIMPLE QUEUE JOB")
+        job["save_path"]= self.save_path
         job = Job(job,self.client)
         filter_dic = job.get_dic()
         print("FILTER DIC: " + str(filter_dic))
         SpreadWriter(filter_dic)
 
     def remove_job(self,job_name):
-        if len(job_name)>1:
+        if len(job_name)>3:
             try:
-                rmtree("./job-data/" + job_name)
+                rmtree(self.save_path + job_name)
                 return {"msg": "successfully deleted job"}
             except:
                 return {"msg": "error deleting job"}
