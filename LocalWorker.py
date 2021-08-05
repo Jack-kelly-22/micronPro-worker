@@ -12,7 +12,7 @@ class LocalWorker:
         self.config = config.get_configuration()
         self.log=log
         self.name = self.config["SELF"]["NAME"]
-        self.save_path = self.config["SELF"]["SAVE_PATH"]
+        #self.save_path = self.config["SELF"]["SAVE_PATH"]
         if self.name!="jk-local":
             self.save_path = os.path.join(os.environ['USERPROFILE'],"OneDrive - 3L Partners")
             print("LIST:",os.listdir(self.save_path))
