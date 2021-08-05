@@ -7,7 +7,7 @@ import atexit
 
 POLL_INTERVAL = 30
 QUEUE_POLL_INTERVAL = 20
-FOLDER_INTERVAL = 60
+FOLDER_INTERVAL = 6
 
 def create_app():
     app = Flask(__name__)
