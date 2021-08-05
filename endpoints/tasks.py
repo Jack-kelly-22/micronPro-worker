@@ -27,15 +27,15 @@ def post_folders():
         # cleanup later
         db_folders1 = db_folders["folders"]
         db_folders = list(map(lambda x: list(x.keys())[0], db_folders1))
-        print("DB_FOLDERS: ", db_folders)
-        print("FOLDERS: ", folders)
+        # print("DB_FOLDERS: ", db_folders)
+        # print("FOLDERS: ", folders)
         folders = [{folder:folders[folder]} for folder in folders.keys() if folder not in db_folders]
         # del_folders = [{folder:db_folders1[folder]} for folder in db_folders if folder not in folders.keys()]
         # if del_folders:
         #     print("Deleting folders: ", del_folders)
         #     localWorker.client.micronProDB.workers.update_one({"name": localWorker.name}, {"$pull":{"folders":{"$each": del_folders}}})
         print("FOUND {} NEW FOLDERS".format(len(folders)))
-        print(folders)
+        # print(folders)
     if len(folders):
         requests.post(backend_url + "/post_folders",json={"folders":folders,"name":config["SELF"]["NAME"]})
     else:
@@ -44,7 +44,7 @@ def post_folders():
 def check_queued():
     """ sends request to the backend to ask if there are queued jobs"""
     backend_url = config["HOST"]["URL"]
-    result = requests.get(backend_url + "/queued",json={"name":config["SELF"]["NAME"]})
+    result = requests.get(backend_url + "/queued",json={"worker_name":config["SELF"]["NAME"]})
     if result.status_code==200:
         data = result.json()
         if "jobs" in data:
