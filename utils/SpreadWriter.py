@@ -27,7 +27,7 @@ class SpreadWriter:
         self.write_rejected_images(filter_dic)
         # save workbook
         self.workbook.save(
-            self.options["save_path"] + self.job_name + "/" + self.job_name + "_sheet.xlsx"
+            filter_dic["save_path"] + self.job_name + "/" + self.job_name + "_sheet.xlsx"
         )
         print("SAVED EXCEL: ", self.job_name)
 
