@@ -21,6 +21,7 @@ def post_folders():
     folders = localWorker.get_image_folders()
     backend_url = config["HOST"]["URL"]
     db_folders = localWorker.client.micronProDB.workers.find_one({"name": localWorker.name})
+    print("DB:",dict(db_folders))
     if db_folders:
         # cleanup later
         db_folders1 = db_folders["folders"]
