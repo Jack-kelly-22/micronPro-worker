@@ -27,8 +27,8 @@ def post_folders():
         # cleanup later
         db_folders1 = db_folders["folders"]
         db_folders = list(map(lambda x: list(x.keys())[0], db_folders1))
-        # print("DB_FOLDERS: ", db_folders)
-        # print("FOLDERS: ", folders)
+        print("DB_FOLDERS: ", db_folders)
+        print("FOLDERS: ", folders)
         folders = [{folder:folders[folder]} for folder in folders.keys() if folder not in db_folders]
         # del_folders = [{folder:db_folders1[folder]} for folder in db_folders if folder not in folders.keys()]
         # if del_folders:
