@@ -27,15 +27,15 @@ def post_folders():
         db_folders = list(map(lambda x: list(x.keys())[0], db_folders1))
         # print("DB_FOLDERS: ", db_folders)
         # print("FOLDERS: ", folders)
-        folders1 = [{folder:folders[folder]} for folder in folders.keys() if folder not in db_folders]
+        folders = [{folder:folders[folder]} for folder in folders.keys() if folder not in db_folders]
         # del_folders = [{folder:db_folders1[folder]} for folder in db_folders if folder not in folders.keys()]
         # if del_folders:
         #     print("Deleting folders: ", del_folders)
         #     localWorker.client.micronProDB.workers.update_one({"name": localWorker.name}, {"$pull":{"folders":{"$each": del_folders}}})
-        print("FOUND {} NEW FOLDERS".format(len(folders1)))
-        print(folders1)
-    if len(folders1):
-        requests.post(backend_url + "/post_folders",json={"folders":folders1,"name":config["SELF"]["NAME"]})
+        print("FOUND {} NEW FOLDERS".format(len(folders)))
+        print(folders)
+    if len(folders):
+        requests.post(backend_url + "/post_folders",json={"folders":folders,"name":config["SELF"]["NAME"]})
     else:
         print("no new folders")
 
