@@ -14,7 +14,7 @@ class LocalWorker:
         self.name = self.config["SELF"]["NAME"]
         #self.save_path = self.config["SELF"]["SAVE_PATH"]
         if self.name!="jk-local":
-            self.save_path = os.path.join(os.environ['USERPROFILE'],"OneDrive - 3L Partners")
+            self.save_path = os.path.join(os.environ['USERPROFILE'],"OneDrive - 3L Partners\")
             print("LIST:",os.listdir(self.save_path))
         user,password = (self.config["MongoDB"]["user"],
             self.config["MongoDB"]["password"])

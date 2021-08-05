@@ -52,7 +52,7 @@ class Job:
         """will attempt to create directory for job outputs
         if folder already exists will empty folder"""
         try:
-            mkdir("./job-data/" + self.job_name)
+            mkdir(self.options["save_path"] + self.job_name)
         except Exception as e:
             print("exception:", e)
             if len(self.job_name):
@@ -85,7 +85,7 @@ class Job:
         prev_dic = client.micronProDB.jobs.find_one({"job_id":job['job_id']})
         job['_id'] = prev_dic['_id']
         prev_dic = client.micronProDB.jobs.delete_one({"job_id":job['job_id']})
-        client.micronProDB.jobs.update_one({"job_id":job['job_id']},{'$set':job})
+        client.micronProDB.jobs.insert_one(job)
         
 
     def create_frames(self, options, frame_paths):
