@@ -42,7 +42,7 @@ def post_folders():
 def check_queued():
     """ sends request to the backend to ask if there are queued jobs"""
     backend_url = config["HOST"]["URL"]
-    result = requests.get(backend_url + "/queued")
+    result = requests.get(backend_url + "/queued",json={"name":config["SELF"]["NAME"]})
     if result.status_code==200:
         data = result.json()
         if "jobs" in data:
