@@ -80,7 +80,7 @@ class SpreadWriter:
                     if img_dic['largest_pore'] > 140:
                         self.page["C" + str(self.i)].style = "Bad"
                     elif img_dic['largest_pore']>82.88 and img_dic['largest_pore']<140:
-                        self.page["C" + str(self.i)].style = "highlight"
+                        self.page["C" + str(self.i)].style = "Neutral"
                     else:
                         self.page["C" + str(self.i)].style = "Good"
 
