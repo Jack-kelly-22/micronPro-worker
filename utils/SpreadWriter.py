@@ -75,10 +75,7 @@ class SpreadWriter:
                 if img_dic["largest_pore"] > filter_dic["constants"]["max_allowed"] and not(img_dic['largest_pore']<140):
                     self.page["C" + str(self.i)].style = "Bad"
                 if img_dic["pass"]:
-                # if img_dic["largest_pore"] < 140:
-                #     self.page["C" + str(self.i)].style = "Bad"
-                
-                    # self.page["D" + str(self.i)].style = "Good"
+                    self.page["D" + str(self.i)].style = "Good"
                 else:
                     if img_dic['largest_pore'] > 140:
                         self.page["C" + str(self.i)].style = "Bad"
