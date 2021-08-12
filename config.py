@@ -34,6 +34,7 @@ class WorkerConfiguration:
         # jwt_secret = os.environ.get("JWTSECRET"
         backend_url = os.environ.get("BACKENDURL")
         worker_url = os.environ.get("SELFURL")
+        name = os.environ.get("SELFNAME")
         user = os.environ.get("MONGOUSER")
         password = os.environ.get("MONGOPASS")
 

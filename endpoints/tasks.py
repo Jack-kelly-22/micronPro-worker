@@ -20,9 +20,8 @@ def post_folders():
     
     folders = localWorker.get_image_folders()
     backend_url = config["HOST"]["URL"]
-    print("NAME: ", config["SELF"]["NAME"])
+    print("NAME: ", config["SELF"]["NAME"].lstrip())
     db_folders = localWorker.client.micronProDB.workers.find_one({"name":config["SELF"]["NAME"]})
-    # print("DB:",dict(db_folders))
     if db_folders:
         # cleanup later
         db_folders1 = db_folders["folders"]
@@ -47,7 +46,8 @@ def check_queued():
     result = requests.get(backend_url + "/queued",json={"worker_name":config["SELF"]["NAME"]})
     if result.status_code==200:
         data = result.json()
-        if "jobs" in data:
+        localWorker.client.micronProDB.jobs.delete_many({"status":"In Progress"})
+        if "jobs" in data.keys():
             # starts first queued job
             if "action" in data.keys() and data["action"]=="delete":
                 # delete queued job

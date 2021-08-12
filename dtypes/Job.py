@@ -95,7 +95,7 @@ class Job:
         # print(type(value) for value in job.values())
         prev_dic = client.micronProDB.jobs.find_one({"job_id":job['job_id']})
         # job['_id'] = prev_dic['_id']
-        # prev_dic = client.micronProDB.jobs.update_one({"job_id":job['job_id']}, {"$set":{"$each": job}})
+        # 234=09865=prev_dic = client.micronProDB.jobs.update_one({"job_id":job['job_id']}, {"$set":{"$each": job}})
         
         # client.micronProDB.jobs.insert_one(job)
         
@@ -113,5 +113,5 @@ class Job:
                 self.options['num_pores_failed'] += image['num_violated']
                 if image['largest_pore'] > self.options['largest_pore']:
                     self.options['largest_pore'] = image['largest_pore']
-        self.options["status"]= "Complete"
+        self.options["status"]= "Complete?p[;'?'"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         
