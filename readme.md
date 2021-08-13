@@ -31,12 +31,9 @@ in the folder titled .config (if this folder is not there right away it will be 
     - app flashes terminal up then closes
       - this may be an issue with requirements not being installed, please run the install again and note any errors
       - could also be caused by the folder of the project being named 'micronPro-worker-master' if this is the case change the folder to 'micronPro-worker'
-    - 
+    - '
 
 ## Updating 
+-to update the program run the file update.bat as admin, this file is located in the root of the project directory
 
-
-
-
-
-anygo to common one drive for datya acces and storage
+-alternativly you can run the command "git pull" in the projects root directory

@@ -7,10 +7,11 @@ from math import pi
 from porespy.metrics import porosity
 from cv2 import resize, INTER_AREA
 from skimage.measure import label, regionprops
-
+from time import time
 
 class SimpleImage:
     def __init__(self, image_dic, options):
+        timestamp = time()
         self.image_data = imread(image_dic["img_path"])
         image_dic["id"] = str(uuid4()).replace("-", "")
         self.image_data_backup = self.image_data
@@ -30,6 +31,7 @@ class SimpleImage:
 
         if not self.image_dic["pass"]:
             self.not_pass()
+        self.image_dic['seconds'] = float(time() - timestamp)
 
     def get_dic(self):
         # self.image_dic['violated_circles'] = self.violated_circles
@@ -136,7 +138,7 @@ class SimpleImage:
             self.image_dic["largest_pore"] = r
         if not r <= max_diam:
             print("FAILED R:", r, "Microns")
-            self.violated_circles.append([center, r])
+            self.violated_circles.append([(int(center[0]),int(center[1])), int(r)])
         return r <= max_diam
 
     def get_regions(self):
