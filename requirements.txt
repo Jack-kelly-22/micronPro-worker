@@ -11,4 +11,3 @@ opencv-python
 openpyxl
 flask-jwt-extended
 black
-
